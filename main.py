@@ -24,13 +24,12 @@ while t < pm.tf:
     print(t / pm.tf)
     plt.plot(pm.L_N)
     plt.ylim(0, 10)
-    if t % 0.01:
-        plt.show()
     # print("\n L_Ff", L_Ff)
     # print("\n L_N",L_N)
     # print("\n L_Xi",L_Xi)
     # print("\n L_P",L_P)
     # print("\n L_Pf",L_Pf)
     # print("\n L_F",L_F)
+plt.show()
 
 print("\n End !")
