@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import pm
 import func
 
-
 pm.init()
 
 # Courant Condition

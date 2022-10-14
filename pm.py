@@ -12,7 +12,7 @@ def init():
     tf = 10 * sc.minute  # Total time of the simulation
     nt = 10000  # Number of iteration
     dt = tf / nt  # Time step
-    c = 8  # Light speed
+    c = 2  # Light speed
 
     # List (L_), Ff for (F)lux at (f)rontier
     global L_N, L_F, L_Ff, L_P, L_Pf, L_Xi
