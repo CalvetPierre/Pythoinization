@@ -1,34 +1,41 @@
 # Definition of function to iterate throughout the simulation
 # Change function name for explicit/implicit ?
-from pm import *
+import pm
+import numpy as np
 
 
 def updt_N():
-    L_N[N - 1] += dt / dx * (L_Ff[N - 1] - L_Ff[0])
-    for i in range(N - 1):
-        L_N[i] += dt / dx * (L_Ff[i] - L_Ff[i + 1])
+    pm.L_N1 = pm.L_N
+    pm.L_N[pm.N - 1] += pm.dt / pm.dx * (pm.L_Ff1[pm.N - 1] - pm.L_Ff1[0])
+    for i in range(pm.N - 1):
+        pm.L_N[i] += pm.dt / pm.dx * (pm.L_Ff1[i] - pm.L_Ff1[i + 1])
 
 
 def updt_P():
-    L_P = L_Xi * L_N
+    pm.L_P1 = pm.L_P
+    pm.L_P = pm.L_Xi * pm.L_N
 
 
 def updt_F():
-    L_F[N - 1] += c ** 2 * dt / dx * (L_Pf[N - 1] - L_Pf[0])
-    for i in range(N - 1):
-        L_F[i] += c ** 2 * dt / dx * (L_Pf[i] - L_Pf[i + 1])
+    pm.L_F1 = pm.L_F
+    pm.L_F[pm.N - 1] += pm.c ** 2 * pm.dt / pm.dx * (pm.L_Pf1[pm.N - 1] - pm.L_Pf1[0])
+    for i in range(pm.N - 1):
+        pm.L_F[i] += pm.c ** 2 * pm.dt / pm.dx * (pm.L_Pf1[i] - pm.L_Pf1[i + 1])
 
 
 def GLF_Pf():
-    for i in range(N):
-        L_Pf[i] = 0.5 * (L_P[i - 1] + L_P[i]) - c / 2 * (L_F[i] - L_F[i - 1])
+    pm.L_Pf1 = pm.L_Pf
+    for i in range(pm.N):
+        pm.L_Pf[i] = 0.5 * (pm.L_P1[i - 1] + pm.L_P1[i]) - pm.c / 2 * (pm.L_F1[i] - pm.L_F1[i - 1])
 
 
 def GLF_Ff():
-    for i in range(N):
-        L_Ff[i] = 0.5 * (L_F[i - 1] + L_F[i]) - c / 2 * (L_N[i] - L_N[i - 1])
+    pm.L_Ff1 = pm.L_Ff
+    for i in range(pm.N):
+        pm.L_Ff[i] = 0.5 * (pm.L_F1[i - 1] + pm.L_F1[i]) - pm.c / 2 * (pm.L_N1[i] - pm.L_N1[i - 1])
 
 
 def updt_Xi():
-    f = L_F / (c * L_N)
-    L_Xi = (3 + 4 * f ** 2) / (5 + 2 * np.sqrt(4 - 3 * f ** 2))
+    pm.L_Xi1 = pm.L_Xi
+    f = pm.L_F / (pm.c * pm.L_N)
+    pm.L_Xi = (3 + 4 * f ** 2) / (5 + 2 * np.sqrt(4 - 3 * f ** 2))

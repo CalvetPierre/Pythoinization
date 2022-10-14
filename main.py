@@ -1,17 +1,18 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy import constants as sc
+import pm
 import func
-from pm import *
+
+
+pm.init()
 
 # Courant Condition
-print("Courant value :", 3 * c * dt / dx)
-if 3 * c * dt / dx >= 1:
+print("Courant value :", 3 * pm.c * pm.dt / pm.dx)
+if 3 * pm.c * pm.dt / pm.dx >= 1:
     print("Courant condition not respected !")
 
 t = 0
-while t < tf:
-    t += dt
+while t < pm.tf:
+    t += pm.dt
 
     func.GLF_Ff()
     func.updt_N()
@@ -21,8 +22,8 @@ while t < tf:
     func.updt_F()
 
     # Stock / Plot
-    print(t / tf)
-    plt.plot(L_N)
+    print(t / pm.tf)
+    plt.plot(pm.L_N)
     plt.ylim(0, 10)
     if t % 0.01:
         plt.show()
