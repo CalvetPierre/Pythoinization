@@ -10,26 +10,22 @@ if 3 * pm.c * pm.dt / pm.dx >= 1:
     print("Courant condition not respected !")
 
 t = 0
+# Method Explicit (meth = "exp") or Implicit (meth = "imp")
+meth = "exp"
 while t < pm.tf:
     t += pm.dt
 
-    func.GLF_Ff()
-    func.updt_N()
+    func.GLF()
+    func.updt_N(meth)
     func.updt_Xi()
     func.updt_P()
-    func.GLF_Pf()
-    func.updt_F()
+    func.updt_F(meth)
 
     # Stock / Plot
     print(t / pm.tf)
     plt.plot(pm.L_N)
     plt.ylim(0, 10)
-    # print("\n L_Ff", L_Ff)
-    # print("\n L_N",L_N)
-    # print("\n L_Xi",L_Xi)
-    # print("\n L_P",L_P)
-    # print("\n L_Pf",L_Pf)
-    # print("\n L_F",L_F)
+
 plt.show()
 
 print("\n End !")
