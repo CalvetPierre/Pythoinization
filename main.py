@@ -76,13 +76,17 @@ def animate(i):
     # plots a sine graph
     y = np.array(N_temp[i])
     line.set_data(x, y)
+    # TODO plot speed of the front wave
+    # See : https://www.geeksforgeeks.org/matplotlib-animate-multiple-lines/
+    # line.set_data(np.array([50+i*pm.c*pm.dt/pm.dx]*2), np.array([0, 4]))
+    # here doesn't work logically
 
     return line,
 
 
 anim = FuncAnimation(fig, animate,
                      init_func=init,
-                     frames=800,
+                     frames=200,
                      interval=20,
                      blit=True)
 
