@@ -1,3 +1,6 @@
 NUMERICAL SIMULATION PROJECT
 Radiative transfer for the epoch of reionization : Moment method, ATON-1D
 
+
+For the report:
+Can be interesting to show what happen when the courant condition is not respected
