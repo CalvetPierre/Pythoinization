@@ -67,7 +67,6 @@ def etaH0(T):
 def psiH0(T):
     res = 7.5e-19 / (1. + pow(T / 1.e5, 0.5))
     res *= np.exp(-118348. / T)
-    res *= 1e-6
     return res
 
 
