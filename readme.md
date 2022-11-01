@@ -7,4 +7,8 @@ Work in progress (:
 
 
 
-<img src="https://github.com/Radical-Red/Pythoinization/blob/master/Star1dfrom0.gif?raw=true" width="300">
+<img src="https://github.com/Radical-Red/Pythoinization/blob/master/result/Pulse1dFaster.gif?raw=true" width="300">
+
+<img src="https://github.com/Radical-Red/Pythoinization/blob/master/result/Star1d.gif" width="300">
+
+<img src="https://github.com/Radical-Red/Pythoinization/blob/master/result/Star1dfrom0.gif" width="300">
