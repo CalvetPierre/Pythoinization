@@ -26,7 +26,7 @@ N_temp = []
 while t < pm.tf:
     i += 1
     t += pm.dt
-
+    pm.L_N[48:52] += 0.05
     func.GLF()
     func.updt_N(meth)
     func.updt_Xi()
@@ -57,7 +57,7 @@ plt.show()
 fig = plt.figure(3)
 
 axis = plt.axes(xlim=(0, 100),
-                ylim=(0, 4))
+                ylim=(0, 6))
 
 # initializing a line variable
 line, = axis.plot([], [], lw=3)

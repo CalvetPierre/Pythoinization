@@ -19,7 +19,6 @@ def init():
     L_N, L_F, L_Ff, L_P, L_Pf, L_Xi = np.zeros(N), np.zeros(N), np.zeros(N), np.zeros(N), np.zeros(N), np.zeros(N)
 
     L_N = np.ones(N) / 1000
-    L_N[50] += 10
 
     # List that will be used to save the last value of given list
     global L_N1, L_F1, L_Ff1, L_P1, L_Pf1, L_Xi1
