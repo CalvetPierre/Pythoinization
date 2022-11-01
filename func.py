@@ -6,16 +6,14 @@ import numpy as np
 
 def GLF():
     pm.L_Pf1 = pm.L_Pf
-    for i in range(pm.N):
-        pm.L_Pf[i] = 0.5 * (pm.L_P[i - 1] + pm.L_P[i]) - pm.c / 2 * (pm.L_F[i] - pm.L_F[i - 1])
-
     pm.L_Ff1 = pm.L_Ff
     for i in range(pm.N):
+        pm.L_Pf[i] = 0.5 * (pm.L_P[i - 1] + pm.L_P[i]) - pm.c / 2 * (pm.L_F[i] - pm.L_F[i - 1])
         pm.L_Ff[i] = 0.5 * (pm.L_F[i - 1] + pm.L_F[i]) - pm.c / 2 * (pm.L_N[i] - pm.L_N[i - 1])
 
 
 def updt_N(meth):
-    if meth == "exp":
+    if meth == "exp": #TODO
         pm.L_N[pm.N - 1] += pm.dt / pm.dx * (pm.L_Ff1[pm.N - 1] - pm.L_Ff1[0])
         for i in range(pm.N - 1):
             pm.L_N[i] += pm.dt / pm.dx * (pm.L_Ff1[i] - pm.L_Ff1[i + 1])
@@ -31,7 +29,7 @@ def updt_P():
 
 
 def updt_F(meth):
-    if meth == "exp":
+    if meth == "exp": #TODO
         # pm.L_F1 = pm.L_F
         pm.L_F[pm.N - 1] += pm.dt / pm.dx * (pm.L_Pf1[pm.N - 1] - pm.L_Pf1[0])
         for i in range(pm.N - 1):
