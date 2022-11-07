@@ -3,7 +3,6 @@ from scipy import constants as sc
 
 
 # Initialization of global variable
-
 def init():
     global N, L, dx, tf, nt, dt, c
     N = 100  # Number of cell

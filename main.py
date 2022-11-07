@@ -94,5 +94,3 @@ writer = PillowWriter(fps=30)
 anim.save('animation.gif', writer=writer)
 
 print("\n End !")
-
-# test
