@@ -13,6 +13,7 @@ pm.init()
 print("Courant value :", 3 * pm.c * pm.dt / pm.dx)
 if 3 * pm.c * pm.dt / pm.dx >= 1:
     print("Courant condition not respected !")
+    print("STOP HERE")
 
 t = 0
 # Method Explicit (meth = "exp") or Implicit (meth = "imp")
@@ -23,10 +24,10 @@ i = 0
 
 # Storage of N values
 N_temp = []
-while t < pm.tf:
+while t < pm.tf/10:
     i += 1
     t += pm.dt
-    pm.L_N[48:52] += 0.05
+    pm.L_N[50] += 10000
     func.GLF()
     func.updt_N(meth)
     func.updt_Xi()
@@ -34,21 +35,25 @@ while t < pm.tf:
     func.updt_F(meth)
 
     # Stock / Plot
-
+    plt.figure(4)
     plt.plot(pm.L_N)
     plt.ylim(0, 10)
 
+    plt.figure(5)
+    plt.plot(pm.L_x)
+    plt.ylim(0, 1.2)
+
     # Storage of N each 20 time step
 
-    if i % 5 == 0:
+    if i % 10 == 0:
         N_temp.append(pm.L_N.tolist())
         print(t / pm.tf)
 
 plt.show()
 
-print(np.shape(N_temp))
-print(N_temp[1])
-print(len(N_temp))
+# print(np.shape(N_temp))
+# print(N_temp[1])
+# print(len(N_temp))
 plt.figure(1)
 for i in range(len(N_temp)):
     plt.plot(N_temp[i])
@@ -84,6 +89,8 @@ def animate(i):
     return line,
 
 
+# Following comment is to store animation in a gif
+
 anim = FuncAnimation(fig, animate,
                      init_func=init,
                      frames=200,
@@ -92,5 +99,6 @@ anim = FuncAnimation(fig, animate,
 
 writer = PillowWriter(fps=30)
 anim.save('animation.gif', writer=writer)
+
 
 print("\n End !")

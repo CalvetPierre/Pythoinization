@@ -2,6 +2,7 @@
 # Change function name for explicit/implicit ?
 import pm
 import numpy as np
+import reaction_rates
 
 
 def GLF():
@@ -13,15 +14,26 @@ def GLF():
 
 
 def updt_N(meth):
-    if meth == "exp": #TODO
+    if meth == "exp":  # TODO
         pm.L_N[pm.N - 1] += pm.dt / pm.dx * (pm.L_Ff1[pm.N - 1] - pm.L_Ff1[0])
+        pm.L_N[pm.N - 1] = reaction_rates.updt_Ngamma(pm.T, pm.L_N[pm.N - 1], 3, pm.L_x[pm.N - 1], pm.dt)
+        pm.L_x[pm.N - 1] = reaction_rates.Q_root(pm.T, pm.L_N[pm.N - 1], 3, pm.L_x[pm.N - 1], pm.dt)
+        # print(pm.L_x[40])
+        # + reaction_rates.updt_Ngamma(T,pm.L_N[pm.N - 1], ro, x, pm.dt)
         for i in range(pm.N - 1):
             pm.L_N[i] += pm.dt / pm.dx * (pm.L_Ff1[i] - pm.L_Ff1[i + 1])
+            pm.L_N[i] = reaction_rates.updt_Ngamma(pm.T, pm.L_N[i], 300, pm.L_x[pm.N - 1], pm.dt)
+            pm.L_x[i] = reaction_rates.Q_root(pm.T, pm.L_N[i], 300, pm.L_x[i], pm.dt)
 
+
+
+
+    '''
     if meth == "imp":
-        pm.L_N[pm.N - 1] += pm.dt / pm.dx * (pm.L_Ff[pm.N - 1] - pm.L_Ff[0])
+        print(1)
+        pm.L_N[pm.N - 1] += pm.dt / pm.dx * (pm.L_Ff[pm.N - 1] - pm.L_Ff[0]) * 1
         for i in range(pm.N - 1):
-            pm.L_N[i] += pm.dt / pm.dx * (pm.L_Ff[i] - pm.L_Ff[i + 1])
+            pm.L_N[i] += pm.dt / pm.dx * (pm.L_Ff[i] - pm.L_Ff[i + 1])'''
 
 
 def updt_P():
@@ -29,17 +41,19 @@ def updt_P():
 
 
 def updt_F(meth):
-    if meth == "exp": #TODO
-        # pm.L_F1 = pm.L_F
+    if meth == "exp":
+        # pm.L_F1 = pm.L_F 1
         pm.L_F[pm.N - 1] += pm.dt / pm.dx * (pm.L_Pf1[pm.N - 1] - pm.L_Pf1[0])
         for i in range(pm.N - 1):
             pm.L_F[i] += pm.dt / pm.dx * (pm.L_Pf1[i] - pm.L_Pf1[i + 1])
 
+    '''
     if meth == "imp":
-        # pm.L_F1 = pm.L_F
+        print(2)
+         # pm.L_F1 = pm.L_F
         pm.L_F[pm.N - 1] += pm.dt / pm.dx * (pm.L_Pf[pm.N - 1] - pm.L_Pf[0])
         for i in range(pm.N - 1):
-            pm.L_F[i] += pm.dt / pm.dx * (pm.L_Pf[i] - pm.L_Pf[i + 1])
+            pm.L_F[i] += pm.dt / pm.dx * (pm.L_Pf[i] - pm.L_Pf[i + 1]) '''
 
 
 def updt_Xi():

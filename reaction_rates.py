@@ -68,7 +68,7 @@ def betabremsstrahlung(T):
     return res
 
 
-def coolingrate(T, x):
+def cooling_rate(T, x):
     res = betabremsstrahlung(T) * x ** 2 + psiH0(T) * (1. - x) ** 2 + ksiH0(T) * (1. - x) ** 2 + etaH0(T) * x ** 2
     return res
 
@@ -76,12 +76,22 @@ def coolingrate(T, x):
 def Q_root(T, Ngamma, ro, x, dt):
     sigma = 1.63e-18
     m = (alphaBH(T) + betaH(T)) * ro ** 2 * dt
-    n = ro - (alphaAH(T) + betaH(T)) * ro / (sigma * sc.c * 1e2) - alphaBH(T) * ro ** 2 * dt - 2 * betaH(T) * ro ** 2 * dt
-    p = -ro * (1 + x) - Ngamma - 1 / (sigma * sc.c * 1e2 * dt) + betaH(T) * ro / (sigma * sc.c * 1e2) + betaH(T) * ro ** 2 * dt
+    n = ro - (alphaAH(T) + betaH(T)) * ro / (sigma * sc.c * 1e2) - alphaBH(T) * ro ** 2 * dt - 2 * betaH(
+        T) * ro ** 2 * dt
+    p = -ro * (1 + x) - Ngamma - 1 / (sigma * sc.c * 1e2 * dt) + betaH(T) * ro / (sigma * sc.c * 1e2) + betaH(
+        T) * ro ** 2 * dt
     q = Ngamma + ro * x + x / (sigma * sc.c * 1e2 * dt)
     coef = [m, n, p, q]
     res = np.roots(coef)
     for i in res:
         if 1 > i > 0:
             return i
+    return res
+
+
+# updt_Ngamma (p+1) = N_gamma' + β * ro**2 * (1 - X) * X * dt - alphaB * ro**2 * X**2 * dt - ro * (X - x) cf (A5)
+def updt_Ngamma(T, Ngamma, ro, x, dt):
+    res = Ngamma + betaH(T) * ro ** 2 * (1 - Q_root(T, Ngamma, ro, x, dt)) * Q_root(T, Ngamma, ro, x,
+                                                                                    dt) * dt - alphaBH(
+        T) * ro ** 2 * Q_root(T, Ngamma, ro, x, dt) ** 2 * dt - ro * (Q_root(T, Ngamma, ro, x, dt) - x)
     return res
